@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Accounts   -->
+    <bean id="account1" class="com.snel.anel.AccountOfClients">
+        <constructor-arg index="0" name="accountNumber" value="0000KZ"/>
+        <constructor-arg index="1" name="balance" value="1000.0"/>
+    </bean>
+    <bean id="account2" class="com.snel.anel.AccountOfClients">
+        <constructor-arg index="0" name="accountNumber" value="1111KZ"/>
+        <constructor-arg index="1" name="balance" value="1000.0"/>
+    </bean>
+
+
+    <!-- Cards -->
+    <bean id="card1" class="com.snel.anel.Card">
+        <constructor-arg value="0000111122223333"/>
+        <constructor-arg value="1111"/>
+        <constructor-arg ref="account1"/>
+    </bean>
+
+    <bean id="card2" class="com.snel.anel.Card">
+        <constructor-arg value="1111222233334444"/>
+        <constructor-arg value="2222"/>
+        <constructor-arg ref="account2"/>
+    </bean>
+
+    <!-- Clients -->
+    <bean id="client1" class="com.snel.anel.Consumer">
+        <constructor-arg index="0" name="name"  value="Anelya"/>
+        <constructor-arg index="1" name="card" ref="card1"/>
+    </bean>
+
+    <bean id="client1" class="com.snel.anel.Consumer">
+        <constructor-arg index="0" name="name"  value="Anelya"/>
+        <constructor-arg index="1" name="card" ref="card1"/>
+    </bean>
+
+    <bean id="client2" class="com.snel.anel.Consumer">
+        <constructor-arg value="Angela"/>
+        <constructor-arg ref="card2"/>
+    </bean>
+
+    <!-- Bank -->
+    <bean id="bank" class="com.snel.anel.I">
+        <property name="accounts">
+            <list>
+                <ref bean="account1"/>
+                <ref bean="account2"/>
+            </list>
+        </property>
+
+        <property name="cards">
+            <list>
+                <ref bean="card1"/>
+                <ref bean="card2"/>
+            </list>
+        </property>
+
+        <property name="users">
+            <list>
+                <ref bean="client1"></ref>
+                <ref bean="client2"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ATM -->
+    <bean id="atm" class="com.snel.anel.ATM_Bank">
+        <constructor-arg ref="bank"/>
+    </bean>
+</beans>
